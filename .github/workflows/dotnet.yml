@@ -18,6 +18,10 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Display the path
+      run: pwd
+      shell: bash
+    
+    - name: Display the path
       run: ls -R
       shell: bash
     
