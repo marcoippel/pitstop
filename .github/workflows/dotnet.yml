@@ -17,6 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-          
+    - name: Display the path
+      run: ls -R
+      shell: bash
+    
     - name: Build and push Docker images
       uses: docker/build-push-action@v2.4.0
