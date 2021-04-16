@@ -10,10 +10,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src/AuditlogService
-        shell: sh
+#     defaults:
+#       run:
+#         working-directory: ./src/AuditlogService
+#         shell: sh
         
     steps:
     - uses: actions/checkout@v2
