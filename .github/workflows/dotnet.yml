@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./../src/AuditlogService
+        working-directory: ./src/AuditlogService
         shell: sh
         
     steps:
