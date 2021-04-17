@@ -16,19 +16,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
-      
+
       - name: Build and Push the Docker image
         run: docker build -t marcoippel/auditlogservice:latest .
-      
-      - name: Tag
-        uses: K-Phoen/semver-release-action@master
+
+      - name: Bump version and push tag
+        uses: hennejg/github-tag-action@v4.1.jh1
         with:
-          release_branch: master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Push the Docker image
-        run: docker push marcoippel/auditlogservice:latest        
+        run: docker push marcoippel/auditlogservice:latest
