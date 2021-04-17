@@ -14,18 +14,21 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
       
-      -
-        name: Login to Dockerhub
+      - name: Login to Dockerhub
         run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
       
-      - 
-        name: Build and Push the Docker image
+      - name: Build and Push the Docker image
         run: docker build -t marcoippel/auditlogservice:latest .
       
-      - 
-        name: Push the Docker image
+      - name: Tag
+        uses: K-Phoen/semver-release-action@master
+        with:
+          release_branch: master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:latest
