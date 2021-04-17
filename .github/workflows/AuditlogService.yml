@@ -31,4 +31,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Push the Docker image
-        run: docker push marcoippel/auditlogservice:latest
+        run: docker push marcoippel/auditlogservice:latest 
+        
