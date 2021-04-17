@@ -18,6 +18,14 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       
+      -
+        name: Login to Dockerhub
+        run: docker login ${{ secrets.dockerhub_username }} ${{ secrets.dockerhub_password }}
+      
       - 
-        name: Build the Docker image
-        run: docker build -t marcoippel/AuditlogService:latest.
+        name: Build and Push the Docker image
+        run: docker build -t marcoippel/auditlogservice:latest .
+      
+      - 
+        name: Push the Docker image
+        run: docker push marcoippel/auditlogservice:latest
