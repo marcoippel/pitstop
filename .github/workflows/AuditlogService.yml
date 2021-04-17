@@ -20,7 +20,7 @@ jobs:
       
       -
         name: Login to Dockerhub
-        run: docker login ${{ secrets.dockerhub_username }} ${{ secrets.dockerhub_password }}
+        run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
       
       - 
         name: Build and Push the Docker image
