@@ -23,10 +23,5 @@ jobs:
       - name: Build and Push the Docker image
         run: docker build -t marcoippel/auditlogservice:latest .
 
-      - name: Bump version and push tag
-        uses: hennejg/github-tag-action@v4.1.jh1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:latest
