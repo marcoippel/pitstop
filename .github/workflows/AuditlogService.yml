@@ -38,12 +38,12 @@ jobs:
         run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
 
       - name: Set release tag
-        if: ${GITHUB_REF#refs/heads/} == "master"
+        if: ${GITHUB_REF#refs/heads/} == master
         run: |
           echo "tag=${{ steps.gitversion.outputs.SemVer }}.${{ steps.gitversion.outputs.buildMetaData }}" >> $GITHUB_ENV
           
       - name: Set pre-release tag
-        if: ${GITHUB_REF#refs/heads/} != "master"
+        if: ${GITHUB_REF#refs/heads/} != master
         run: |
           echo "tag=${{ steps.gitversion.outputs.ShortSha }}" >> $GITHUB_ENV
 
