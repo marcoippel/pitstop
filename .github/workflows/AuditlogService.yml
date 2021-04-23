@@ -37,8 +37,18 @@ jobs:
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
 
+      - name: Set release tag
+        if: ${GITHUB_REF#refs/heads/} == "master"
+        run: |
+          echo "tag=${{ steps.gitversion.outputs.SemVer }}.${{ steps.gitversion.outputs.buildMetaData }}" >> $GITHUB_ENV
+          
+      - name: Set pre-release tag
+        if: ${GITHUB_REF#refs/heads/} != "master"
+        run: |
+          echo "tag=${{ steps.gitversion.outputs.ShortSha }}" >> $GITHUB_ENV
+
       - name: Build and Push the Docker image
-        run: docker build -t marcoippel/auditlogservice:${{ steps.gitversion.outputs.SemVer }}.${{ steps.gitversion.outputs.buildMetaData }} .
+        run: docker build -t marcoippel/auditlogservice:${{ env.tag }} .
 
       - name: Push the Docker image
-        run: docker push marcoippel/auditlogservice:${{ steps.gitversion.outputs.SemVer }}.${{ steps.gitversion.outputs.buildMetaData }}
+        run: docker push marcoippel/auditlogservice:${{ env.tag }}
