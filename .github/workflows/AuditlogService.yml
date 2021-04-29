@@ -29,9 +29,9 @@ jobs:
 #       - name: Determine Version
 #         id:   gitversion
 #         uses: gittools/actions/gitversion/execute@v0.9.7
-      - name: Get latest tag
-        id: latesttag  
-        run: git describe --tags --abbrev=0
+#       - name: Get latest tag
+#         id: latesttag  
+#         run: git describe --tags --abbrev=0
         
 
       - name: Login to Dockerhub
@@ -40,7 +40,7 @@ jobs:
       - name: Set release tag
         if: github.ref == 'refs/heads/master'
         run: |
-          echo "tag=${{ steps.latesttag.outputs[0] }}" >> $GITHUB_ENV
+          echo "tag=${{ git describe --tags --abbrev=0 }}" >> $GITHUB_ENV
           
       - name: Set pre-release tag
         if: github.ref != 'refs/heads/master'
