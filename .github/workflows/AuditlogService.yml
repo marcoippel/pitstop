@@ -32,7 +32,7 @@ jobs:
       - name: Get latest tag
         id: latesttag  
         run: |
-          echo ::set-env name=tag::$(git describe --tags --abbrev=0)
+          echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
         
 
       - name: Login to Dockerhub
