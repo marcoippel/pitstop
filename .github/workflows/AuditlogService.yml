@@ -41,7 +41,7 @@ jobs:
       - name: Set pre-release tag
         if: github.ref != 'refs/heads/master'
         run: |
-          echo "tag=${{ steps.gitversion.outputs.ShortSha }}" >> $GITHUB_ENV
+          echo "tag=${{ steps.gitversion.outputs.SemVer }}.${{ steps.gitversion.outputs.buildMetaData }}.pre-release" >> $GITHUB_ENV
 
       - name: Build and Push the Docker image
         run: docker build -t marcoippel/auditlogservice:${{ env.tag }} .
