@@ -19,35 +19,14 @@ jobs:
       
       - name: fetch
         run: git fetch --unshallow
-      
-#       - name: Install GitVersion
-#         uses: gittools/actions/gitversion/setup@v0.9.7
-#         with:
-#           versionSpec: '5.x'
-      
-           
-#       - name: Determine Version
-#         id:   gitversion
-#         uses: gittools/actions/gitversion/execute@v0.9.7
+
       - name: Get latest tag
-        id: latesttag  
         run: |
           echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        
-
+  
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
       
-#       - name: Set release tag
-#         if: github.ref == 'refs/heads/master'
-#         run: |
-#           echo "tag=${{ git describe --tags --abbrev=0 }}" >> $GITHUB_ENV
-          
-#       - name: Set pre-release tag
-#         if: github.ref != 'refs/heads/master'
-#         run: |
-#           echo "tag=${{ steps.gitversion.outputs.SemVer }}.${{ steps.gitversion.outputs.buildMetaData }}.pre-release" >> $GITHUB_ENV
-
       - name: Build and Push the Docker image
         run: docker build -t marcoippel/auditlogservice:${{ env.tag }} .
 
