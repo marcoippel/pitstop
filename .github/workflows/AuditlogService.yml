@@ -20,10 +20,10 @@ jobs:
       - name: fetch
         run: git fetch --unshallow
       
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: '5.x'
+#       - name: Install GitVersion
+#         uses: gittools/actions/gitversion/setup@v0.9.7
+#         with:
+#           versionSpec: '5.x'
       
            
 #       - name: Determine Version
@@ -32,7 +32,7 @@ jobs:
       - name: Get latest tag
         id: latesttag  
         run: |
-          echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
         
 
       - name: Login to Dockerhub
