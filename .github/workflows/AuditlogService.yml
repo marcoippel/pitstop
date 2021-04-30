@@ -11,7 +11,7 @@ defaults:
     working-directory: ./src/AuditlogService
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,3 +32,24 @@ jobs:
 
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:${{ env.tag }}
+        
+#   update-dev-image:
+#     runs-on: ubuntu-latest
+#     if: contains(github.ref, 'heads')
+#     needs:
+#     - build
+#     steps:
+#     - uses: imranismail/setup-kustomize@v1
+#     - run: git clone https://${REPO_TOKEN}@github.com/gbaeke/realtimeapp-infra.git .
+#       env:
+#         REPO_TOKEN: ${{secrets.REPO_TOKEN}}
+#     - run: kustomize edit set image gbaeke/flux-rt:sha-$(git rev-parse --short $GITHUB_SHA)
+#       working-directory: ./deploy/overlays/dev
+#     - run: git add .
+#     - run: |
+#         git config user.email "$EMAIL"
+#         git config user.name "$GITHUB_ACTOR"
+#       env:
+#         EMAIL: ${{secrets.EMAIL}}
+#     - run: git commit -m "Set dev image tag to short sha"
+#     - run: git push
