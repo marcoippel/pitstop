@@ -33,40 +33,24 @@ jobs:
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
+          
   update-dev-image:
     runs-on: ubuntu-latest
+    if: contains(github.ref, 'heads')
     needs:
     - build
     steps:
-      - name: kube-linter
-        # You may pin to the exact commit or the version.
-        # uses: stackrox/kube-linter-action@0aa052e48009ddab07136dcbc946811d9332ebf1
-        uses: stackrox/kube-linter-action@v1.0.2
-        with:
-          # Directory to scan 
-          directory: 
-          # Path to config file
-          config: # optional
-          # Filename to store output.  Default "kubelinter.log"
-          output-file: # optional, default is kubelinter.log
-
-#   update-dev-image:
-#     runs-on: ubuntu-latest
-#     if: contains(github.ref, 'heads')
-#     needs:
-#     - build
-#     steps:
-#     - uses: imranismail/setup-kustomize@v1
-#     - run: git clone https://${REPO_TOKEN}@github.com/gbaeke/realtimeapp-infra.git .
-#       env:
-#         REPO_TOKEN: ${{secrets.REPO_TOKEN}}
-#     - run: kustomize edit set image gbaeke/flux-rt:sha-$(git rev-parse --short $GITHUB_SHA)
-#       working-directory: ./deploy/overlays/dev
-#     - run: git add .
-#     - run: |
-#         git config user.email "$EMAIL"
-#         git config user.name "$GITHUB_ACTOR"
-#       env:
-#         EMAIL: ${{secrets.EMAIL}}
-#     - run: git commit -m "Set dev image tag to short sha"
-#     - run: git push
+    - uses: imranismail/setup-kustomize@v1
+    - run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
+      env:
+        REPO_TOKEN: ${{secrets.REPO_TOKEN}}
+    - run: kustomize edit set image marcoippel/auditlogservice:${{ env.tag }}
+      working-directory: ./auditlogservice
+    - run: git add .
+    - run: |
+        git config user.email "$EMAIL"
+        git config user.name "$GITHUB_ACTOR"
+      env:
+        EMAIL: ${{secrets.EMAIL}}
+    - run: git commit -m "Set dev image tag to short sha"
+    - run: git push
