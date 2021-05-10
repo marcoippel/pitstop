@@ -35,8 +35,13 @@ jobs:
 
       - uses: imranismail/setup-kustomize@v1
 
+      - name: switch to infra folder
+        run: |
+          mkdir pitstop-infra
+          cd pitstop-infra
+
       - name: Git CLone infra repo
-        run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git ./pitstop-infra
+        run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
         env:
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
 
