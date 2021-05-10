@@ -1,0 +1,19 @@
+name: AuditlogService
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+defaults:
+  run:
+    working-directory: ./src/AuditlogService
+
+jobs:
+  update-dev-image:
+    runs-on: ubuntu-latest
+    steps:
+    - run: git status #clone https://${secrets.REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
+      # env:
+      #   REPO_TOKEN: ${{secrets.REPO_TOKEN}}
