@@ -33,9 +33,6 @@ jobs:
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
-#       - name: Set tag var
-#         id: vars
-#         run: echo ::set-output name=tag::$(echo ${{ env.tag }})
     outputs:
       tag: ${{ env.tag }}
 
@@ -56,14 +53,12 @@ jobs:
 
     - run: kustomize edit set image marcoippel/auditlogservice:${{ needs.build.outputs.tag }}
       working-directory: ./auditlogservice
-
-    - run: git status
     
     - run: git add .
     
     - run: |
-        git config user.email "marco@ippelsoft.nl"
-        git config user.name "Marco Ippel"
+        git config user.email ${{ secrets.email }}
+        git config user.name "$GITHUB_ACTOR"
     
     - run: git commit -m "Set dev image tag to short sha"
     
