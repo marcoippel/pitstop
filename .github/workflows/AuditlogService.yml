@@ -35,7 +35,7 @@ jobs:
 
       - name: Set tag var
         id: vars
-        run: echo ::set-output name=tag::$(echo ${env.tag})
+        run: echo ::set-output name=tag::$(echo ${{ env.tag }})
 
   update-dev-image:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.4
       with:
-        repository: https://github.com/marcoippel/pitstop-infra
+        repository: marcoippel/pitstop-infra
         #ref: # optional
         token: ${{secrets.REPO_TOKEN}}
 #     - run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
