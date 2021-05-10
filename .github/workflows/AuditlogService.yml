@@ -54,10 +54,6 @@ jobs:
 
     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
       working-directory: ./auditlogservice
-    
-    - name: Open root Directory
-      run: |
-        ls -la
 
     - run: git status
     
@@ -66,8 +62,6 @@ jobs:
     - run: |
         git config user.email "marco@ippelsoft.nl"
         git config user.name "Marco Ippel"
-        env:
-          EMAIL: ${{secrets.EMAIL}}
     
     - run: git commit -m "Set dev image tag to short sha"
     
