@@ -57,8 +57,7 @@ jobs:
     
     - run: |
         pwd
-        ls -a .
-      
+
     - run: git status
     
     - run: git add .
