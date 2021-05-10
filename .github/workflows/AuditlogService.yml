@@ -43,9 +43,15 @@ jobs:
     needs:
     - build
     steps:
-    - run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
-      env:
-        REPO_TOKEN: ${{secrets.REPO_TOKEN}}
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        repository: https://github.com/marcoippel/pitstop-infra
+        #ref: # optional
+        token: ${{secrets.REPO_TOKEN}}
+#     - run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
+#       env:
+#         REPO_TOKEN: ${{secrets.REPO_TOKEN}}
 
     - uses: imranismail/setup-kustomize@v1
     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
