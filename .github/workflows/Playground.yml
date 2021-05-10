@@ -1,4 +1,4 @@
-name: AuditlogService
+name: PlayGround
 
 on:
   push:
