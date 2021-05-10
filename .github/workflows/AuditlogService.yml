@@ -33,9 +33,11 @@ jobs:
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
-      - name: Set tag var
-        id: vars
-        run: echo ::set-output name=tag::$(echo ${{ env.tag }})
+#       - name: Set tag var
+#         id: vars
+#         run: echo ::set-output name=tag::$(echo ${{ env.tag }})
+    outputs:
+      tag: ${{ env.tag }}
 
   update-dev-image:
     runs-on: ubuntu-latest
@@ -52,7 +54,7 @@ jobs:
 
     - uses: imranismail/setup-kustomize@v1
 
-    - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
+    - run: kustomize edit set image marcoippel/auditlogservice:${{ needs.build.outputs.tag }}
       working-directory: ./auditlogservice
 
     - run: git status
