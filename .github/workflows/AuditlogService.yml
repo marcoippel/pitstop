@@ -64,8 +64,8 @@ jobs:
     - run: git add .
     
     - run: |
-        git config user.email "$EMAIL"
-        git config user.name "$GITHUB_ACTOR"
+        git config user.email ${EMAIL}
+        git config user.name "Marco Ippel"
         env:
           EMAIL: ${{secrets.EMAIL}}
     
