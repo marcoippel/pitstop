@@ -33,36 +33,28 @@ jobs:
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
-      - uses: imranismail/setup-kustomize@v1
+      - name: Set tag var
+        id: vars
+        run: echo ::set-output name=tag::$(echo ${env.tag})
 
-      - name: switch to infra folder
-        run: |
-          mkdir pitstop-infra
-          cd pitstop-infra
+  update-dev-image:
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'heads')
+    needs:
+    - build
+    steps:
+    - run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
+      env:
+        REPO_TOKEN: ${{secrets.REPO_TOKEN}}
 
-      - run: pwd
-
-      - name: Git CLone infra repo
-        run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
-        env:
-          REPO_TOKEN: ${{secrets.REPO_TOKEN}}
-
-      - name: Update image tag
-        run: kustomize edit set image marcoippel/auditlogservice:${{ env.tag }}
-        working-directory: ./pitstop-infra/auditlogservice
-
-      - name: Git add
-        run: git add .
-
-      - name: Git set config
-        run: |
-          git config user.email "$EMAIL"
-          git config user.name "$GITHUB_ACTOR"
-        env:
-          EMAIL: ${{secrets.EMAIL}}
-
-      - name: Git commmit
-        run: git commit -m "Set dev image tag to short sha"
-
-      - name: Git push
-        run: git push
+    - uses: imranismail/setup-kustomize@v1
+    - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
+      working-directory: ./auditlogservice
+    - run: git add .
+    - run: |
+        git config user.email "$EMAIL"
+        git config user.name "$GITHUB_ACTOR"
+      env:
+        EMAIL: ${{secrets.EMAIL}}
+    - run: git commit -m "Set dev image tag to short sha"
+    - run: git push
