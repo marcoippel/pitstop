@@ -55,6 +55,7 @@ jobs:
     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
       working-directory: ./auditlogservice
     
+    - run: ls -a
     - run: git status
     
     - run: git add .
