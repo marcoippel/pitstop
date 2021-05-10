@@ -43,20 +43,21 @@ jobs:
 #     needs:
 #     - build
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2.3.4
-      with:
-        repository: marcoippel/pitstop-infra
-        #ref: # optional
-        token: ${{secrets.REPO_TOKEN}}
+#     - name: Checkout
+#       uses: actions/checkout@v2.3.4
+#       with:
+#         repository: marcoippel/pitstop-infra
+#         #ref: # optional
+#         token: ${{secrets.REPO_TOKEN}}
 
 #     - uses: imranismail/setup-kustomize@v1
 
 #     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
 #       working-directory: ./auditlogservice
     
-    - run: |
-        pwd
+    - name: foo
+      id: foo1
+      run: pwd
 
     - run: git status
     
