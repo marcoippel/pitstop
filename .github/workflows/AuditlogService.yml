@@ -58,7 +58,7 @@ jobs:
     
     - run: |
         git config user.email ${{ secrets.email }}
-        git config user.name "$GITHUB_ACTOR"
+        git config user.name $GITHUB_ACTOR
     
     - run: git commit -m "Set dev image tag to short sha"
     
