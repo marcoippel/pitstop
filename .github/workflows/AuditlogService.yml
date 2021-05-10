@@ -49,18 +49,17 @@ jobs:
         repository: marcoippel/pitstop-infra
         #ref: # optional
         token: ${{secrets.REPO_TOKEN}}
-#     - run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
-#       env:
-#         REPO_TOKEN: ${{secrets.REPO_TOKEN}}
 
     - uses: imranismail/setup-kustomize@v1
+
     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
       working-directory: ./auditlogservice
-    - run: /usr/bin/git add .
+    
+    - run: git add .
     - run: |
-        /usr/bin/git config user.email "$EMAIL"
-        /usr/bin/git config user.name "$GITHUB_ACTOR"
+        git config user.email "$EMAIL"
+        git config user.name "$GITHUB_ACTOR"
       env:
         EMAIL: ${{secrets.EMAIL}}
-    - run: /usr/bin/git commit -m "Set dev image tag to short sha"
-    - run: /usr/bin/git push
+    - run: git commit -m "Set dev image tag to short sha"
+    - run: git push
