@@ -40,6 +40,8 @@ jobs:
           mkdir pitstop-infra
           cd pitstop-infra
 
+      - run: $pwd
+
       - name: Git CLone infra repo
         run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
         env:
