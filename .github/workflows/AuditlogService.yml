@@ -55,11 +55,16 @@ jobs:
     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
       working-directory: ./auditlogservice
     
+    - run: git status
+    
     - run: git add .
+    
     - run: |
         git config user.email "$EMAIL"
         git config user.name "$GITHUB_ACTOR"
-      env:
-        EMAIL: ${{secrets.EMAIL}}
+        env:
+          EMAIL: ${{secrets.EMAIL}}
+    
     - run: git commit -m "Set dev image tag to short sha"
+    
     - run: git push
