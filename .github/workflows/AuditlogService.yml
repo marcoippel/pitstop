@@ -64,7 +64,7 @@ jobs:
     - run: git add .
     
     - run: |
-        git config user.email ${{ env.EMAIL }}
+        git config user.email "marco@ippelsoft.nl"
         git config user.name "Marco Ippel"
         env:
           EMAIL: ${{secrets.EMAIL}}
