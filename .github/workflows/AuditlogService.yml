@@ -56,11 +56,11 @@ jobs:
     - uses: imranismail/setup-kustomize@v1
     - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
       working-directory: ./auditlogservice
-    - run: git add .
+    - run: /usr/bin/git add .
     - run: |
-        git config user.email "$EMAIL"
-        git config user.name "$GITHUB_ACTOR"
+        /usr/bin/git config user.email "$EMAIL"
+        /usr/bin/git config user.name "$GITHUB_ACTOR"
       env:
         EMAIL: ${{secrets.EMAIL}}
-    - run: git commit -m "Set dev image tag to short sha"
-    - run: git push
+    - run: /usr/bin/git commit -m "Set dev image tag to short sha"
+    - run: /usr/bin/git push
