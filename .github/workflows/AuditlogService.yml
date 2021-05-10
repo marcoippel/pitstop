@@ -36,13 +36,13 @@ jobs:
       - uses: imranismail/setup-kustomize@v1
 
       - name: Git CLone infra repo
-        run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
+        run: git clone https://${REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git ./pitstop-infra
         env:
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
 
       - name: Update image tag
         run: kustomize edit set image marcoippel/auditlogservice:${{ env.tag }}
-        working-directory: ./auditlogservice
+        working-directory: ./pitstop-infra/auditlogservice
 
       - name: Git add
         run: git add .
