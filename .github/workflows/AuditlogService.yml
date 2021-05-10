@@ -33,24 +33,29 @@ jobs:
       - name: Push the Docker image
         run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
+      - uses: imranismail/setup-kustomize@v1
 
-  update-dev-image:
-    runs-on: ubuntu-latest
-    if: contains(github.ref, 'heads')
-    needs:
-    - build
-    steps:
-    - uses: imranismail/setup-kustomize@v1
-    - run: git clone https://${secrets.REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
-      env:
-        REPO_TOKEN: ${{secrets.REPO_TOKEN}}
-    - run: kustomize edit set image marcoippel/auditlogservice:${{ env.tag }}
-      working-directory: ./auditlogservice
-    - run: git add .
-    - run: |
-        git config user.email "$EMAIL"
-        git config user.name "$GITHUB_ACTOR"
-      env:
-        EMAIL: ${{secrets.EMAIL}}
-    - run: git commit -m "Set dev image tag to short sha"
-    - run: git push
+      - name: Git CLone infra repo
+        run: git clone https://${secrets.REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
+        env:
+          REPO_TOKEN: ${{secrets.REPO_TOKEN}}
+
+      - name: Update image tag
+        run: kustomize edit set image marcoippel/auditlogservice:${{ env.tag }}
+        working-directory: ./auditlogservice
+
+      - name: Git add
+        run: git add .
+
+      - name: Git set config
+        run: |
+          git config user.email "$EMAIL"
+          git config user.name "$GITHUB_ACTOR"
+        env:
+          EMAIL: ${{secrets.EMAIL}}
+
+      - name: Git commmit
+        run: git commit -m "Set dev image tag to short sha"
+
+      - name: Git push
+        run: git push
