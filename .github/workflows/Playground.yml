@@ -14,6 +14,8 @@ jobs:
   update-dev-image:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
     - run: git status #clone https://${secrets.REPO_TOKEN}@github.com/marcoippel/pitstop-infra.git .
       # env:
       #   REPO_TOKEN: ${{secrets.REPO_TOKEN}}
