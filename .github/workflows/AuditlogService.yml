@@ -52,7 +52,7 @@ jobs:
         token: ${{secrets.REPO_TOKEN}}
 
     - name: Update tag
-      uses: marcoippel/pitstop/.github/actions/update-image-tag@${{needs.build.outputs.sha}}
+      uses: marcoippel/pitstop/.github/actions/update-image-tag@${{needs.build.outputs.tag}}
       with:
         image-selector: 'marcoippel/auditlogservice'
         image-tag: ${{ needs.build.outputs.tag }}
