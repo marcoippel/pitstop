@@ -16,7 +16,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+  - run: |
+      curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" --output ./install_kustomize.sh
+      chmod +x ./install_kustomize.sh
+      ./install_kustomize.sh
     shell: bash
     working-directory: ./
 
