@@ -35,7 +35,7 @@ jobs:
 
     outputs:
       tag: ${{ env.tag }}
-      sha: echo "$(git rev-parse --short HEAD)"
+      sha: $(echo git rev-parse --short HEAD)
 
   update-dev-image:
     runs-on: ubuntu-latest
@@ -53,13 +53,13 @@ jobs:
 
     - run: echo ${{needs.build.outputs.sha}}
 
-    # - name: Update tag
-    #   uses: marcoippel/pitstop/.github/actions/update-image-tag@${{needs.build.outputs.tag}}
-    #   with:
-    #     image-selector: 'marcoippel/auditlogservice'
-    #     image-tag: ${{ needs.build.outputs.tag }}
-    #     working-directory: './auditlogservice'
-    #     emailaddress: 'marco@ippelsoft.nl'
+    - name: Update tag
+      uses: marcoippel/pitstop/.github/actions/update-image-tag@master
+      with:
+        image-selector: 'marcoippel/auditlogservice'
+        image-tag: ${{ needs.build.outputs.tag }}
+        working-directory: './auditlogservice'
+        emailaddress: 'marco@ippelsoft.nl'
 
     # - run: kustomize edit set image marcoippel/auditlogservice:${{ needs.build.outputs.tag }}
     #   working-directory: ./auditlogservice
