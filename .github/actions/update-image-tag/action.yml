@@ -18,6 +18,7 @@ runs:
   steps:
   - run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
     shell: bash
+    working-directory: ./
 
   - run: kustomize edit set image ${{ inputs.image-selector }}:${{ inputs.image-tag }}
     working-directory: ${{ inputs.working-directory }}
