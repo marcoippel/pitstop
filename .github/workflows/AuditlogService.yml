@@ -47,6 +47,9 @@ jobs:
       with:
         repository: marcoippel/pitstop-infra
         token: ${{secrets.REPO_TOKEN}}
+
+    - run: ls -A
+
     - id: foo
       uses: ./.github/actions/update-image-tag
       with:
