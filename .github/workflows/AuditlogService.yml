@@ -51,7 +51,7 @@ jobs:
         repository: marcoippel/pitstop-infra
         token: ${{secrets.REPO_TOKEN}}
 
-    - run: echo ${{needs.build.outputs.tag}}
+    - run: echo ${{needs.build.outputs.sha}}
 
     # - name: Update tag
     #   uses: marcoippel/pitstop/.github/actions/update-image-tag@${{needs.build.outputs.tag}}
