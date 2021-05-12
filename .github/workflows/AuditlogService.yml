@@ -35,7 +35,7 @@ jobs:
 
     outputs:
       tag: ${{ env.tag }}
-      sha: $(git rev-parse --short HEAD)
+      sha: echo "$(git rev-parse --short HEAD)"
 
   update-dev-image:
     runs-on: ubuntu-latest
