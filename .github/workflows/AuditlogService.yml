@@ -51,8 +51,9 @@ jobs:
     - run: ls -A
 
     - id: foo
-      uses: marcoippel/pitstop/.github/actions/update-image-tag@1.0.1
+      uses: marcoippel/pitstop/.github/actions/update-image-tag@1.0.2
       with:
         image-selector: 'marcoippel/auditlogservice'
         image-tag: ${{ steps.vars.outputs.tag }}
         working-directory: './auditlogservice'
+        emailaddress: 'marco@ippelsoft.nl'

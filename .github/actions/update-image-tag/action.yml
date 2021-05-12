@@ -10,6 +10,9 @@ inputs:
   working-directory:
     description: 'The working directory'
     required: true
+  emailaddress:
+    description: 'The emailaddress off the user'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -27,7 +30,7 @@ runs:
       /usr/bin/git config user.email "$EMAIL"
       /usr/bin/git config user.name "$GITHUB_ACTOR"
     env:
-      EMAIL: ${{secrets.EMAIL}}
+      EMAIL: ${{ inputs.emailaddress }}
     shell: bash
 
   - run: /usr/bin/git commit -m "Set dev image tag to short sha"
