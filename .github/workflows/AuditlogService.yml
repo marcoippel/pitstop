@@ -53,13 +53,13 @@ jobs:
 
     - run: echo ${{needs.build.outputs.tag}}
 
-    - name: Update tag
-      uses: marcoippel/pitstop/.github/actions/update-image-tag@${{needs.build.outputs.tag}}
-      with:
-        image-selector: 'marcoippel/auditlogservice'
-        image-tag: ${{ needs.build.outputs.tag }}
-        working-directory: './auditlogservice'
-        emailaddress: 'marco@ippelsoft.nl'
+    # - name: Update tag
+    #   uses: marcoippel/pitstop/.github/actions/update-image-tag@${{needs.build.outputs.tag}}
+    #   with:
+    #     image-selector: 'marcoippel/auditlogservice'
+    #     image-tag: ${{ needs.build.outputs.tag }}
+    #     working-directory: './auditlogservice'
+    #     emailaddress: 'marco@ippelsoft.nl'
 
     # - run: kustomize edit set image marcoippel/auditlogservice:${{ needs.build.outputs.tag }}
     #   working-directory: ./auditlogservice
