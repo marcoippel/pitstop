@@ -51,7 +51,7 @@ jobs:
     - run: ls -A
 
     - id: foo
-      uses: marcoippel/pitstop/.github/actions/update-image-tag
+      uses: marcoippel/pitstop/.github/actions/update-image-tag@v1.0.0
       with:
         image-selector: 'marcoippel/auditlogservice'
         image-tag: ${{ steps.vars.outputs.tag }}
