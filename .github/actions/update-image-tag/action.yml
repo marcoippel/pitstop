@@ -16,12 +16,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - run: |
-      curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" --output /home/runner/work/install_kustomize.sh
-      chmod +x /home/runner/work/install_kustomize.sh
-      /home/runner/work/install_kustomize.sh
+  - run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
     shell: bash
-    working-directory: ./
+    working-directory: /
 
   - run: kustomize edit set image ${{ inputs.image-selector }}:${{ inputs.image-tag }}
     working-directory: ${{ inputs.working-directory }}
