@@ -40,8 +40,7 @@ jobs:
   update-dev-image:
     runs-on: ubuntu-latest
     if: contains(github.ref, 'heads')
-    needs:
-    - build
+    needs: build
     steps:
     - run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
       shell: bash
