@@ -48,10 +48,33 @@ jobs:
         repository: marcoippel/pitstop-infra
         token: ${{secrets.REPO_TOKEN}}
 
-    - name: Update tag
-      uses: marcoippel/pitstop/.github/actions/update-image-tag@1.0.3
-      with:
-        image-selector: 'marcoippel/auditlogservice'
-        image-tag: ${{ steps.vars.outputs.tag }}
-        working-directory: './auditlogservice'
-        emailaddress: 'marco@ippelsoft.nl'
+    # - name: Update tag
+    #   uses: marcoippel/pitstop/.github/actions/update-image-tag@1.0.3
+    #   with:
+    #     image-selector: 'marcoippel/auditlogservice'
+    #     image-tag: ${{ steps.vars.outputs.tag }}
+    #     working-directory: './auditlogservice'
+    #     emailaddress: 'marco@ippelsoft.nl'
+
+    - run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+      shell: bash
+
+    - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
+      working-directory: ./auditlogservice
+      shell: bash
+
+    - run: /usr/bin/git add .
+      shell: bash
+
+    - run: |
+        /usr/bin/git config user.email "$EMAIL"
+        /usr/bin/git config user.name "$GITHUB_ACTOR"
+      env:
+        EMAIL: marco@ippelsoft.nl
+      shell: bash
+
+    - run: /usr/bin/git commit -m "Set dev image tag to short sha"
+      shell: bash
+
+    - run: /usr/bin/git push
+      shell: bash
