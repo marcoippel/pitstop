@@ -59,7 +59,7 @@ jobs:
     #     working-directory: './auditlogservice'
     #     emailaddress: 'marco@ippelsoft.nl'
 
-    - run: kustomize edit set image marcoippel/auditlogservice:${{ steps.vars.outputs.tag }}
+    - run: kustomize edit set image marcoippel/auditlogservice:${{ needs.build.outputs.tag }}
       working-directory: ./auditlogservice
       shell: bash
 
