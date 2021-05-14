@@ -1,0 +1,60 @@
+name: TimeService
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - "./src/TimeService"
+      - "**/TimeService.yml"
+      - "./.github/actions"
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      project: TimeService
+      projectLower: timeservice
+    defaults:
+      run:
+        working-directory: ./src/${{env.project}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Build and push image
+        uses: marcoippel/pitstop/.github/actions/build-docker-image@master
+        with:
+          docker-username: ${{ secrets.dockerhub_username }}
+          docker-password: ${{ secrets.dockerhub_password }}
+          docker-image-repo: 'marcoippel/${{env.projectLower}}'
+          working-directory: './src/${{env.project}}'
+          docker-image-version: '1.0.0'
+
+    outputs:
+      tag: ${{ env.tag }}
+
+  update-dev-image:
+    runs-on: ubuntu-latest
+    env:
+      project: TimeService
+      projectLower: timeservice
+    if: contains(github.ref, 'heads')
+    needs: build
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        repository: marcoippel/pitstop-infra
+        token: ${{secrets.REPO_TOKEN}}
+
+    - name: Update tag
+      uses: marcoippel/pitstop/.github/actions/update-image-tag@master
+      with:
+        image-selector: 'marcoippel/${{env.project}}'
+        image-tag: ${{ needs.build.outputs.tag }}
+        working-directory: './${{env.projectLower}}'
+        emailaddress: ${{ secrets.email }}
