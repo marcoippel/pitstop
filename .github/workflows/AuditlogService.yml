@@ -17,21 +17,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: fetch
-        run: git fetch --unshallow
-
       - name: Get latest tag
         run: |
           echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Login to Dockerhub
-        run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
+      - name: Update tag
+        uses: marcoippel/pitstop/.github/actions/build-docker-image@master
+        with:
+          docker-username: ${{ secrets.dockerhub_username }}
+          docker-password: ${{ secrets.dockerhub_password }}
+          docker-image-tag: 'marcoippel/auditlogservice:${{ env.tag }}'
 
-      - name: Build and Push the Docker image
-        run: docker build -t marcoippel/auditlogservice:${{ env.tag }} .
+      # - name: fetch
+      #   run: git fetch --unshallow
 
-      - name: Push the Docker image
-        run: docker push marcoippel/auditlogservice:${{ env.tag }}
+      # - name: Get latest tag
+      #   run: |
+      #     echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      # - name: Login to Dockerhub
+      #   run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
+
+      # - name: Build and Push the Docker image
+      #   run: docker build -t marcoippel/auditlogservice:${{ env.tag }} .
+
+      # - name: Push the Docker image
+      #   run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
     outputs:
       tag: ${{ env.tag }}
@@ -41,7 +52,7 @@ jobs:
     if: contains(github.ref, 'heads')
     needs: build
     steps:
-      
+
     - name: Checkout
       uses: actions/checkout@v2.3.4
       with:

@@ -1,0 +1,26 @@
+name: 'Build docker image'
+description: 'Build the docker image and pushes it to dockerhub'
+inputs:
+  docker-username:
+    description: 'Dockerhub username'
+    required: true
+  docker-password:
+    description: 'Dockerhub password'
+    required: true
+  docker-image-tag:
+    description: 'The tag for the docker image'
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - run: git fetch --unshallow
+    shell: bash
+
+  - run: docker login -u ${{ inputs.docker-username }} -p ${{ inputs.docker-password }}
+    shell: bash
+
+  - run: docker build -t ${{ inputs.docker-username }} .
+    shell: bash
+
+  - run: docker push ${{ inputs.docker-username }}
+    shell: bash
