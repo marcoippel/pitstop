@@ -47,4 +47,4 @@ jobs:
         image-selector: 'marcoippel/auditlogservice'
         image-tag: ${{ needs.build.outputs.tag }}
         working-directory: './auditlogservice'
-        emailaddress: 'marco@ippelsoft.nl'
+        emailaddress: ${{ secrets.email }}
