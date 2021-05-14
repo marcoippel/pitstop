@@ -21,12 +21,13 @@ jobs:
         run: |
           echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Update tag
+      - name: Build and push image
         uses: marcoippel/pitstop/.github/actions/build-docker-image@master
         with:
           docker-username: ${{ secrets.dockerhub_username }}
           docker-password: ${{ secrets.dockerhub_password }}
           docker-image-tag: 'marcoippel/auditlogservice:${{ env.tag }}'
+          working-directory: './auditlogservice'
 
       # - name: fetch
       #   run: git fetch --unshallow

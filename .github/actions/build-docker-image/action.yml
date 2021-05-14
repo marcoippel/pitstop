@@ -10,17 +10,24 @@ inputs:
   docker-image-tag:
     description: 'The tag for the docker image'
     required: true
+  working-directory:
+    description: 'The working directory'
+    required: true
 runs:
   using: "composite"
   steps:
   - run: git fetch --unshallow
     shell: bash
+    working-directory: ${{ inputs.working-directory }}
 
   - run: docker login -u ${{ inputs.docker-username }} -p ${{ inputs.docker-password }}
     shell: bash
+    working-directory: ${{ inputs.working-directory }}
 
   - run: docker build -t ${{ inputs.docker-username }} .
     shell: bash
+    working-directory: ${{ inputs.working-directory }}
 
   - run: docker push ${{ inputs.docker-username }}
     shell: bash
+    working-directory: ${{ inputs.working-directory }}
