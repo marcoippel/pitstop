@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      project: customermanagementapi
+      project: CustomerManagementAPI
     defaults:
       run:
         working-directory: ./src/${{env.project}}
@@ -40,7 +40,7 @@ jobs:
   update-dev-image:
     runs-on: ubuntu-latest
     env:
-      project: customermanagementapi
+      project: CustomerManagementAPI
     if: contains(github.ref, 'heads')
     needs: build
     steps:
