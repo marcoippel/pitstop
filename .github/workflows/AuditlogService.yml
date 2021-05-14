@@ -39,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       project: AuditlogService
+      projectLower: auditlogservice
     if: contains(github.ref, 'heads')
     needs: build
     steps:
@@ -54,5 +55,5 @@ jobs:
       with:
         image-selector: 'marcoippel/${{env.project}}'
         image-tag: ${{ needs.build.outputs.tag }}
-        working-directory: './${{env.project}}'
+        working-directory: './${{env.projectLower}}'
         emailaddress: ${{ secrets.email }}
