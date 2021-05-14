@@ -53,7 +53,7 @@ jobs:
     - name: Update tag
       uses: marcoippel/pitstop/.github/actions/update-image-tag@master
       with:
-        image-selector: 'marcoippel/${{env.project}}'
+        image-selector: 'marcoippel/${{env.projectLower}}'
         image-tag: ${{ needs.build.outputs.tag }}
         working-directory: './${{env.projectLower}}'
         emailaddress: ${{ secrets.email }}
