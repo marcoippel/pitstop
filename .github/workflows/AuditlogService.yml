@@ -3,6 +3,9 @@ name: AuditlogService
 on:
   push:
     branches: [ master ]
+    paths:
+      - "./src/AuditlogService"
+      - "**/AuditlogService.yml"
   pull_request:
     branches: [ master ]
 
