@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      project: AuditlogService
+      projectLower: auditlogservice
     defaults:
       run:
         working-directory: ./src/AuditlogService
@@ -25,15 +28,17 @@ jobs:
         with:
           docker-username: ${{ secrets.dockerhub_username }}
           docker-password: ${{ secrets.dockerhub_password }}
-          docker-image-repo: 'marcoippel/auditlogservice'
-          working-directory: './src/AuditlogService'
-          docker-image-version: '1.0.4'
+          docker-image-repo: 'marcoippel/${{env.projectLower}}'
+          working-directory: './src/${{env.project}}'
+          docker-image-version: '1.0.0'
 
     outputs:
       tag: ${{ env.tag }}
 
   update-dev-image:
     runs-on: ubuntu-latest
+    env:
+      project: AuditlogService
     if: contains(github.ref, 'heads')
     needs: build
     steps:
@@ -47,7 +52,7 @@ jobs:
     - name: Update tag
       uses: marcoippel/pitstop/.github/actions/update-image-tag@master
       with:
-        image-selector: 'marcoippel/auditlogservice'
+        image-selector: 'marcoippel/${{env.project}}'
         image-tag: ${{ needs.build.outputs.tag }}
-        working-directory: './auditlogservice'
+        working-directory: './${{env.project}}'
         emailaddress: ${{ secrets.email }}
