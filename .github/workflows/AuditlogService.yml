@@ -26,6 +26,7 @@ jobs:
           docker-password: ${{ secrets.dockerhub_password }}
           docker-image-tag: 'marcoippel/auditlogservice:${{ env.tag }}'
           working-directory: './src/AuditlogService'
+          docker-image-version: '1.0.4'
 
       # - name: fetch
       #   run: git fetch --unshallow
