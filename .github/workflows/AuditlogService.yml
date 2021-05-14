@@ -27,7 +27,7 @@ jobs:
           docker-username: ${{ secrets.dockerhub_username }}
           docker-password: ${{ secrets.dockerhub_password }}
           docker-image-tag: 'marcoippel/auditlogservice:${{ env.tag }}'
-          working-directory: './auditlogservice'
+          working-directory: './src/AuditlogService'
 
       # - name: fetch
       #   run: git fetch --unshallow
