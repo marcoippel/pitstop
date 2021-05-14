@@ -16,11 +16,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - run: pwd
+  - run: git fetch --unshallow
     shell: bash
+    working-directory: ${{ inputs.working-directory }}
 
-  - run: ls -A
+  - run: |
+      echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
     shell: bash
+    working-directory: ${{ inputs.working-directory }}
 
   - run: git fetch --unshallow
     shell: bash
@@ -30,7 +33,7 @@ runs:
     shell: bash
     working-directory: ${{ inputs.working-directory }}
 
-  - run: docker build -t 'abc/auditlogservice:${{ env.tag }}' .
+  - run: docker build -t '${{ inputs.docker-image-tag }}' .
     shell: bash
     working-directory: ${{ inputs.working-directory }}
 

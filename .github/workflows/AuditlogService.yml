@@ -17,9 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.4
 
-      - name: Get latest tag
-        run: |
-          echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
 
       - name: Build and push image
         uses: marcoippel/pitstop/.github/actions/build-docker-image@master
