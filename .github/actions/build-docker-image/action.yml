@@ -30,10 +30,10 @@ runs:
     shell: bash
     working-directory: ${{ inputs.working-directory }}
 
-  - run: docker build -t marcoippel/${{ inputs.docker-image-tag }} .
+  - run: docker build -t 'marcoippel/${{ inputs.docker-image-tag }}' .
     shell: bash
     working-directory: ${{ inputs.working-directory }}
 
-  - run: docker push marcoippel/${{ inputs.docker-image-tag }}
+  - run: docker push 'marcoippel/${{ inputs.docker-image-tag }}'
     shell: bash
     working-directory: ${{ inputs.working-directory }}
