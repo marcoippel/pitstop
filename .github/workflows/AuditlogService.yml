@@ -17,8 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.4
 
-
-
       - name: Build and push image
         uses: marcoippel/pitstop/.github/actions/build-docker-image@master
         with:
@@ -27,22 +25,6 @@ jobs:
           docker-image-repo: 'marcoippel/auditlogservice'
           working-directory: './src/AuditlogService'
           docker-image-version: '1.0.4'
-
-      # - name: fetch
-      #   run: git fetch --unshallow
-
-      # - name: Get latest tag
-      #   run: |
-      #     echo "tag=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-      # - name: Login to Dockerhub
-      #   run: docker login -u ${{ secrets.dockerhub_username }} -p ${{ secrets.dockerhub_password }}
-
-      # - name: Build and Push the Docker image
-      #   run: docker build -t marcoippel/auditlogservice:${{ env.tag }} .
-
-      # - name: Push the Docker image
-      #   run: docker push marcoippel/auditlogservice:${{ env.tag }}
 
     outputs:
       tag: ${{ env.tag }}
