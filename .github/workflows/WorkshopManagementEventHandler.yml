@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       project: WorkshopManagementEventHandler
-      projectLower: Workshopmanagementeventhandler
+      projectLower: workshopmanagementeventhandler
     defaults:
       run:
         working-directory: ./src/${{env.project}}
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       project: WorkshopManagementEventHandler
-      projectLower: Workshopmanagementeventhandler
+      projectLower: workshopmanagementeventhandler
     if: contains(github.ref, 'heads')
     needs: build
     steps:
