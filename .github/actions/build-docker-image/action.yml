@@ -16,6 +16,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - run: pwd
+    shell: bash
+
+  - run: ls -A
+    shell: bash
+
   - run: git fetch --unshallow
     shell: bash
     working-directory: ${{ inputs.working-directory }}
