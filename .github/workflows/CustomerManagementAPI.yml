@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       project: CustomerManagementAPI
+      projectLower: customermanagementapi
     defaults:
       run:
         working-directory: ./src/${{env.project}}
@@ -28,7 +29,7 @@ jobs:
         with:
           docker-username: ${{ secrets.dockerhub_username }}
           docker-password: ${{ secrets.dockerhub_password }}
-          docker-image-repo: 'marcoippel/${{env.project.tolowercase}}'
+          docker-image-repo: 'marcoippel/${{env.projectLower}}'
           working-directory: './src/${{env.project}}'
           docker-image-version: '1.0.0'
 
