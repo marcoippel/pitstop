@@ -33,10 +33,10 @@ runs:
     shell: bash
     working-directory: ${{ inputs.working-directory }}
 
-  - run: docker build -t ${{ inputs.docker-image-repo }}.toLowerCase:${{ inputs.docker-image-version }} .
+  - run: docker build -t ${{ inputs.docker-image-repo }}:${{ inputs.docker-image-version }} .
     shell: bash
     working-directory: ${{ inputs.working-directory }}
 
-  - run: docker push ${{ inputs.docker-image-repo }}.toLowerCase:${{ inputs.docker-image-version }}
+  - run: docker push ${{ inputs.docker-image-repo }}:${{ inputs.docker-image-version }}
     shell: bash
     working-directory: ${{ inputs.working-directory }}

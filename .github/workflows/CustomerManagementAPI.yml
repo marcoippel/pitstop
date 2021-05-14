@@ -28,7 +28,7 @@ jobs:
         with:
           docker-username: ${{ secrets.dockerhub_username }}
           docker-password: ${{ secrets.dockerhub_password }}
-          docker-image-repo: 'marcoippel/${{env.project}}'
+          docker-image-repo: 'marcoippel/${{env.project.tolowercase}}'
           working-directory: './src/${{env.project}}'
           docker-image-version: '1.0.0'
 
