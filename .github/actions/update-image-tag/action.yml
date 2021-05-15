@@ -21,7 +21,7 @@ runs:
     working-directory: /home/runner/work
 
   - run: kustomize edit set image ${{ inputs.image-selector }}:${{ inputs.image-tag }}
-    working-directory: ${{ inputs.working-directory }}/base
+    working-directory: ${{ inputs.working-directory }}
     shell: bash
 
   - run: /usr/bin/git add .
