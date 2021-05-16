@@ -30,7 +30,7 @@ jobs:
           docker-username: ${{ secrets.dockerhub_username }}
           docker-password: ${{ secrets.dockerhub_password }}
           docker-image-repo: 'marcoippel/${{env.projectLower}}'
-          working-directory: './src/${{env.project}}/base'
+          working-directory: './src/${{env.project}}'
           docker-image-version: '1.0.0'
 
     outputs:
@@ -56,5 +56,5 @@ jobs:
       with:
         image-selector: 'marcoippel/${{env.projectLower}}'
         image-tag: ${{ needs.build.outputs.tag }}
-        working-directory: './${{env.projectLower}}'
+        working-directory: './${{env.projectLower}}/base'
         emailaddress: ${{ secrets.email }}
