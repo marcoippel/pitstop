@@ -6,7 +6,7 @@ on:
     paths:
       - "src/WebApp/**"
       - "**/WebApp.yml"
-      - "./.github/actions"
+      - ".github/actions/**"
   pull_request:
     branches: [ master ]
   workflow_dispatch:

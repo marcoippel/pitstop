@@ -7,7 +7,7 @@ on:
     paths:
       - "src/AuditlogService/**"
       - "**/AuditlogService.yml"
-      - "./.github/actions"
+      - ".github/actions/**"
   pull_request:
     branches: [ master ]
 

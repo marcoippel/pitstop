@@ -7,7 +7,7 @@ on:
     paths:
       - "src/CustomerManagementAPI/**"
       - "**/CustomerManagementAPI.yml"
-      - "./.github/actions"
+      - ".github/actions/**"
   pull_request:
     branches: [ master ]
 
