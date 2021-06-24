@@ -1,7 +1,6 @@
 name: WebApp
 
 on:
-  workflow_dispatch:
   push:
     branches: [ master ]
     paths:
@@ -10,7 +9,7 @@ on:
       - "./.github/actions"
   pull_request:
     branches: [ master ]
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
