@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "./src/WebApp/*"
+      - "src/WebApp/**"
   pull_request:
     branches: [ master ]
   # workflow_dispatch:
