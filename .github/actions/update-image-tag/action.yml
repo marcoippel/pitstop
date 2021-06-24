@@ -37,5 +37,8 @@ runs:
   - run: /usr/bin/git commit -m "Set dev image tag to short sha"
     shell: bash
 
+  - run: /usr/bin/git pull
+    shell: bash
+
   - run: /usr/bin/git push
     shell: bash
