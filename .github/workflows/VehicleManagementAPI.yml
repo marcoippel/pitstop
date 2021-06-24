@@ -5,7 +5,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "./src/VehicleManagementAPI"
+      - "src/VehicleManagementAPI/**"
       - "**/VehicleManagementAPI.yml"
       - "./.github/actions"
   pull_request:

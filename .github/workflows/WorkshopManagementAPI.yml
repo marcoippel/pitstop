@@ -5,7 +5,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "./src/WorkshopManagementAPI"
+      - "src/WorkshopManagementAPI/**"
       - "**/WorkshopManagementAPI.yml"
       - "./.github/actions"
   pull_request:

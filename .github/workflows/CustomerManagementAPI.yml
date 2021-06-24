@@ -5,7 +5,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "./src/CustomerManagementAPI"
+      - "src/CustomerManagementAPI/**"
       - "**/CustomerManagementAPI.yml"
       - "./.github/actions"
   pull_request:
