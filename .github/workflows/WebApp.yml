@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "../../src/WebApp"/*
+      - "../../src/WebApp/*"
       # - "**/WebApp.yml"
       - "./.github/actions"
   pull_request:
